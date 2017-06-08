@@ -1,15 +1,22 @@
 var express = require('express');
+var Autenticacion = require('../helper/autenticacion');
 var contacto = require('../model/contacto');
+var auth = new Autenticacion();
 var router = express.Router();
 
 router.get('/api/contacto/', function(req, res) {
-  contacto.selectAll(function(error, resultados){
-    if(typeof resultados !== undefined) {
-      res.json(resultados);
-    } else {
-      res.json({"Mensaje": "No hay contactos"});
-    }
-  });
+  auth.autorizar(req);
+  if(auth.getAcceso()) {
+    contacto.selectAll(auth.getIdUsuario(), function(error, resultados){
+      if(typeof resultados !== undefined) {
+        res.json(resultados);
+      } else {
+        res.json({"Mensaje": "No hay contactos"});
+      }
+    });
+  } else {
+    res.redirect('default/autenticar');
+  }
 });
 
 router.get('/api/contacto/:idContacto',

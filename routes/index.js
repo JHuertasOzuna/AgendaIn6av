@@ -1,32 +1,25 @@
 var express = require('express');
+var Autenticacion = require('../helper/autenticacion');
 var router = express.Router();
+var auth = new Autenticacion();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  var cookie = req.cookies;
-  if(cookie.nick !== undefined) {
-    var content = "Hola " + cookie.nick;
-    res.render("index", { Mensaje: content});
-  } else {
-    res.render("index", { Mensaje: "Usted no esta logeado"});
-  }
+  auth.autorizar(req);
+  res.render(auth.getPath() + 'index');
 });
-
-
-router.get('/cookies', function(req, res, next) {
-  res.status(200).send(req.cookies);
-});
-
-
 
 router.get('/autenticar', function(req, res, next) {
-  res.render("autenticar");
+  res.render('default/autenticar');
 });
-
 
 router.get('/registrar', function(req, res, next) {
-  res.render("registrar");
+  res.render('default/registrar');
 });
 
+router.get('/cerrar', function(req, res) {
+  res.clearCookie('idUsuario');
+  res.clearCookie('nick');
+  res.redirect('/');
+});
 
 module.exports = router;

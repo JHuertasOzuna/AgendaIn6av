@@ -24,6 +24,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use('/knockout', express.static(path.join(__dirname, 'node_modules/knockout/build')));
+
+//NPM INSTALL KNOCKOUT --SAVE
+//NPM INSTALL JQUERY --SAVE
+
 
 app.use('/', index);
 app.use('/', categoriaRoute);

@@ -1,0 +1,35 @@
+<% include layout %>
+<div class="row">
+  <div class="page-header">
+    <h1>Contacto</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Lista de contactos</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Apellido</th>
+          <th>Nombre</th>
+          <th>Direccion</th>
+          <th>Telefono</th>
+          <th>Correo</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: contactos">
+        <tr>
+          <td data-bind="text: apellido"></td>
+          <td data-bind="text: nombre"></td>
+          <td data-bind="text: direccion"></td>
+          <td data-bind="text: telefono"></td>
+          <td data-bind="text: correo"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-danger">Agregar</button>
+  </div>
+</div>
+<% include footer %>
+<script src="/javascripts/contactoCliente.js"></script>

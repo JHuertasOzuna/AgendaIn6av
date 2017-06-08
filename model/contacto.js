@@ -1,9 +1,10 @@
 var database = require('./database');
 var contacto = {};
 
-contacto.selectAll = function(callback) {
+contacto.selectAll = function(idUsuario, callback) {
   if(database) {
-    database.query("SELECT * FROM Contacto",
+    database.query("SELECT * FROM contacto_usuario WHERE idUsuario = ?",
+    idUsuario,
     function(error, resultados) {
       if(error) {
         throw error;
